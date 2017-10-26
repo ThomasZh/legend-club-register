@@ -1,0 +1,7 @@
+<aside class="widget widget_adv">
+  <h3>旅游产品</h3>
+  {% for article in activities %}
+  <a href="/portal/newsup/item-detail?id={{ article['_id'] }}"><img src="{{ article['img'] }}!170x170" alt="" /></a>
+  {% end %}
+  <div class="clear"></div>
+</aside>

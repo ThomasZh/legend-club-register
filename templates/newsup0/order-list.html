@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic Page Needs
+    ================================================== -->
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ league_info['name'] }} | 订单列表</title>
+  <meta name="author" content="Thomas">
+
+  <link rel="stylesheet" href="{{ static_url('weui/lib/weui.css') }}">
+  <link href="{{ static_url('newsup/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/jasny-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+  <link href="{{ static_url('newsup/css/effect2.css') }}" rel='stylesheet' type='text/css' />
+  <link href="{{ static_url('newsup/css/animate.css') }}" rel='stylesheet' type='text/css' />
+
+  <!-- Add fancyBox CSS files -->
+  <link href="{{ static_url('newsup/js/fancybox/jquery.fancybox.css') }}" media="screen" rel="stylesheet" type="text/css" />
+
+  <!-- Owl Slider CSS -->
+  <link href="{{ static_url('newsup/css/owl.carousel.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/owl.theme.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/owl.transitions.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/rs-wp-v1.2.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/jquery.rs.selectbox.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('css/style.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/responsive.css') }}" rel="stylesheet" type="text/css" />
+
+  <link href="{{ static_url('newsup/fonts/stylesheet.css') }}" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="{{ static_url('newsup/js/jquery.1.11.1.js') }}"></script>
+  <style media="screen">
+    #rst-account-page table th{
+        text-align: center;
+    }
+    #rst-account-page table td{
+        text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--- Wrapper -->
+  <section id="wrapper" class="clearfix">
+
+    <!--- Header -->
+    <header>
+
+      <!-- socialbar -->
+      {% module Template("newsup/block-socialbar.html", is_login=is_login, is_ops=is_ops) %}
+      <!-- /socialbar -->
+
+      <!-- menubar -->
+      {% module Template("newsup/block-menubar.html", is_login=is_login, is_ops=is_ops, league_info=league_info) %}
+      <!-- /menubar -->
+
+    </header>
+    <!--- End Header -->
+
+    <!-- Page Breadcrumb -->
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="rst-breadcrumb">
+            <a href="/portal/newsup/index"><span>首页</span></a>
+            <span>></span>
+            <a href="#"><span>订单列表</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Breadcrumb -->
+
+    <!-- Section Register -->
+    <section id="rst-account-page">
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+              <div class="rst-section-title rst-section-title-box">
+                <h4>订单列表</h4>
+              </div>
+              <!-- end section title -->
+              <div class="rst-accsetting">
+                    <!-- Tables -->
+                <div class="order-title" style="height: 40px;">
+                  <span style="padding-right: 40px;">时间:{{ order['create_time'] }}</span>
+                  <span>订单号:{{ order['pay_id'] }}</span>
+                </div>
+    						<table class="table table-bordered" id="t-table">
+      							<thead>
+      								<tr>
+                        <th>门票类型</th>
+      									<th>门票价格(元)</th>
+                        <th>数量(张)</th>
+                        <th>支付方式</th>
+                        <th>状态</th>
+      								</tr>
+      							</thead>
+      							<tbody id="t-tbody">
+                      {% for item in order['items'] %}
+      								<tr>
+      									<td>{{ item['title'] }}</td>
+      									<td>{{ float(item['amount'])/100 }}</td>
+                        <td><span>{{ item['quantity'] }}</span></td>
+                        <td>微信支付</td>
+                        <td style="color:#39e6ac;">支付成功</td>
+      								</tr>
+                      {% end %}
+      							</tbody>
+    						</table>
+    						<!-- End Tables -->
+              </div>
+              <div class="rst-accsetting widget widget_social" style="top:30px;">
+                <a href="javascript:;">
+  								<span id="priceTotal">{{ float(order['amount'])/100 }}&nbsp元</span>
+                  <button class="rst-pagebutton rst-pagebutton2" type="button" style="width: 100%;background-color: #39e6ac;color: white;">总计</button>
+  							</a>
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Section Register -->
+
+    <!-- Footer -->
+    {% module Template("newsup/block-footer.html", is_login=is_login, is_ops=is_ops) %}
+    <!-- End Footer -->
+
+  </section>
+  <!--- End Wrapper -->
+
+
+  <!-- Bootstrap Js Compiled Plugins -->
+  <script type="text/javascript" src="{{ static_url('newsup/js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/bootstrap-tagsinput.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/jqBootstrapValidation.js') }}"></script>
+  <!-- WoW Js -->
+  <script type="text/javascript" src="{{ static_url('newsup/js/wow.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/fancybox/jquery.fancybox.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/fancybox/helpers/jquery.fancybox-media.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/owl.carousel.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/jquery.rs.selectbox.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('js/main.js') }}"></script>
+  <script type="text/javascript">
+    $(function(){
+        //为每行元素添加事件
+        var tr = document.getElementById('t-table').children[1].rows;
+        for (var i = 0; i < tr.length; i++) {
+            //将点击事件绑定到tr元素
+            tr[i].onclick = function (e) {
+                var e = e || window.event;
+                var el = e.target || e.srcElement; //通过事件对象的target属性获取触发元素
+                var cls = el.className; //触发元素的class
+                var countInout = this.getElementsByTagName('input')[0]; // 数目input
+                var value = parseInt(countInout.value); //数目
+                //通过判断触发元素的class确定用户点击了哪个元素
+                switch (cls) {
+                    case 'add': //点击了加号
+                        countInout.value = value + 1;
+                        break;
+                    case 'reduce': //点击了减号
+                        if (value > 1) {
+                            countInout.value = value - 1;
+                        }
+                        break;
+                }
+            }
+        };
+
+        $('#t-tbody').on('click',".add-ticket",function(){
+            // console.log($(this));
+            var ticket_id = $(this).attr('data-id');
+            $('#t-banner').show();
+            var num = parseInt($(this).parent().prev().children('input.count-input').val());
+            var checked_num = $('#t-banner').text();
+            if(checked_num == ""){
+              checked_num = 0;
+            }
+            var new_num = num + parseInt(checked_num);
+            $('#t-banner').text(new_num);
+            // 添加到购物车
+            var  data = [{"item_id":ticket_id, "spec_id":"00000000000000000000000000000000", quantity:num}]
+            var _json = JSON.stringify(data);
+            console.log(_json);
+            $.ajax({
+                type:"POST",
+                url:"{{ api_domain }}/api/clubs/{{club_id}}/cart/items",
+                data:_json,
+                dataType:'json',
+                headers: {"Authorization":"Bearer {{access_token}}"},
+                contentType: 'application/json',
+                success:function(data,textStatus,jqXHR){
+                    console.log(data);
+                }
+            })
+        });
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Basic Page Needs
+    ================================================== -->
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ league_info['name'] }}</title>
+  <meta name="author" content="Thomas">
+
+
+  <!-- Bootstrap
+        ================================================== -->
+  <link rel="stylesheet" href="{{ static_url('weui/lib/weui.css') }}">
+  <link href="{{ static_url('newsup/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/jasny-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+  <!-- Animate
+        ================================================== -->
+  <link href="{{ static_url('newsup/css/effect2.css') }}" rel='stylesheet' type='text/css' />
+  <link href="{{ static_url('newsup/css/animate.css') }}" rel='stylesheet' type='text/css' />
+
+  <!-- Add fancyBox CSS files -->
+  <link href="{{ static_url('newsup/js/fancybox/jquery.fancybox.css') }}" media="screen" rel="stylesheet" type="text/css" />
+
+  <!-- Owl Slider CSS -->
+  <link href="{{ static_url('newsup/css/owl.carousel.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/owl.theme.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/owl.transitions.css') }}" media="screen" rel="stylesheet" type="text/css" />
+  <!-- Custom Css
+        ================================================== -->
+  <link href="{{ static_url('newsup/css/rs-wp-v1.2.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/jquery.rs.selectbox.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('css/style.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ static_url('newsup/css/responsive.css') }}" rel="stylesheet" type="text/css" />
+
+  <!-- Custom Fonts
+        ================================================== -->
+  <link href="{{ static_url('newsup/fonts/stylesheet.css') }}" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="{{ static_url('newsup/js/jquery.1.11.1.js') }}"></script>
+  <style media="screen">
+    #rst-account-page table th{
+        text-align: center;
+    }
+    #rst-account-page table td{
+        text-align: center;
+    }
+    #t-banner{
+      position: absolute;
+     top: 40px;
+     right: 30%;
+     border-radius: 50%;
+     width: 20px;
+     height: 20px;
+     background-color: #7edc9d;
+     color: white;
+    }
+    .add{
+      margin-left: -4px;
+      width: 24px;
+      height: 26px;
+      display: inline-block;
+      border: 1px solid #bfb8b8;
+      border-left: none;
+      line-height: 23px;
+      cursor: pointer;
+    }
+    .reduce{
+      margin-right: -4px;
+      width: 24px;
+      height: 26px;
+      display: inline-block;
+      border: 1px solid #bfb8b8;
+      border-right: none;
+      line-height: 23px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--- Wrapper -->
+  <section id="wrapper" class="clearfix">
+
+    <!--- Header -->
+    <header>
+
+      <!-- socialbar -->
+      {% module Template("newsup/block-socialbar.html", is_login=is_login, is_ops=is_ops) %}
+      <!-- /socialbar -->
+
+      <!-- menubar -->
+      {% module Template("newsup/block-menubar.html", is_login=is_login, is_ops=is_ops, league_info=league_info) %}
+      <!-- /menubar -->
+
+    </header>
+    <!--- End Header -->
+
+    <!-- Page Breadcrumb -->
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="rst-breadcrumb">
+            <a href="/portal/newsup/index"><span>首页</span></a>
+            <span>></span>
+            <a href="/portal/newsup/ticket-list"><span>景区门票</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Page Breadcrumb -->
+
+    <!-- Section Register -->
+    <section id="rst-account-page">
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+              <div class="rst-section-title rst-section-title-box">
+                <h4>景区门票价格</h4>
+              </div>
+              <!-- end section title -->
+              <div class="rst-accsetting">
+                    <!-- Tables -->
+    						<table class="table table-bordered" id="t-table">
+    							<thead>
+    								<tr>
+    									<th>门票类型</th>
+    									<th>门票价格(元)</th>
+                      <th>数量</th>
+    									<th>操作</th>
+    								</tr>
+    							</thead>
+    							<tbody id="t-tbody">
+                    {% for ticket in tickets %}
+    								<tr>
+    									<td>{{ ticket['title'] }}</td>
+    									<td>{{ float(ticket['amount'])/100 }}</td>
+                      <td>
+                        <span class="reduce">-</span>
+                        <input style="width:50px;text-align:center;" class="count-input" type="text" value="1"/>
+                        <span class="add">+</span>
+                      </td>
+    									<td><a href="javascript:;" class="add-ticket" data-id="{{ ticket['_id'] }}">订购</a></td>
+    								</tr>
+                    {% end %}
+    							</tbody>
+    						</table>
+    						<!-- End Tables -->
+              </div>
+              <div class="rst-accsetting widget widget_social">
+                <a href="/portal/newsup/ticket-cart?club_id={{ club_id }}" target="_blank" style="position:relative;">
+  								<span>票数</span>
+                  <i class="fa fa-shopping-cart"></i>
+                  <p id="t-banner" style="display:none;"></p>
+  							</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Section Register -->
+
+    <!-- Footer -->
+    {% module Template("newsup/block-footer.html", is_login=is_login, is_ops=is_ops) %}
+    <!-- End Footer -->
+
+  </section>
+  <!--- End Wrapper -->
+
+
+  <!-- Bootstrap Js Compiled Plugins -->
+  <script type="text/javascript" src="{{ static_url('newsup/js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/bootstrap-tagsinput.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/jqBootstrapValidation.js') }}"></script>
+  <!-- WoW Js -->
+  <script type="text/javascript" src="{{ static_url('newsup/js/wow.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/fancybox/jquery.fancybox.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/fancybox/helpers/jquery.fancybox-media.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/owl.carousel.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('newsup/js/jquery.rs.selectbox.js') }}"></script>
+  <script type="text/javascript" src="{{ static_url('js/main.js') }}"></script>
+  <script type="text/javascript">
+    $(function(){
+        //为每行元素添加事件
+        var tr = document.getElementById('t-table').children[1].rows;
+        for (var i = 0; i < tr.length; i++) {
+            //将点击事件绑定到tr元素
+            tr[i].onclick = function (e) {
+                var e = e || window.event;
+                var el = e.target || e.srcElement; //通过事件对象的target属性获取触发元素
+                var cls = el.className; //触发元素的class
+                var countInout = this.getElementsByTagName('input')[0]; // 数目input
+                var value = parseInt(countInout.value); //数目
+                //通过判断触发元素的class确定用户点击了哪个元素
+                switch (cls) {
+                    case 'add': //点击了加号
+                        countInout.value = value + 1;
+                        break;
+                    case 'reduce': //点击了减号
+                        if (value > 1) {
+                            countInout.value = value - 1;
+                        }
+                        break;
+                }
+            }
+        };
+
+        $('#t-tbody').on('click',".add-ticket",function(){
+            // console.log($(this));
+            var ticket_id = $(this).attr('data-id');
+            $('#t-banner').show();
+            var num = parseInt($(this).parent().prev().children('input.count-input').val());
+            var checked_num = $('#t-banner').text();
+            if(checked_num == ""){
+              checked_num = 0;
+            }
+            var new_num = num + parseInt(checked_num);
+            $('#t-banner').text(new_num);
+            // 添加到购物车
+            var  data = [{"item_id":ticket_id, "spec_id":"00000000000000000000000000000000", quantity:num}]
+            var _json = JSON.stringify(data);
+            console.log(_json);
+            $.ajax({
+                type:"POST",
+                url:"{{ api_domain }}/api/clubs/{{club_id}}/cart/items",
+                data:_json,
+                dataType:'json',
+                headers: {"Authorization":"Bearer {{access_token}}"},
+                contentType: 'application/json',
+                success:function(data,textStatus,jqXHR){
+                    console.log(data);
+                }
+            })
+        });
+    })
+  </script>
+</body>
+</html>

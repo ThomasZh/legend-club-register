@@ -1,0 +1,70 @@
+<!--- Footer -->
+<footer>
+  <div class="container">
+    <div class="rst-footerline"></div>
+    <div class="row rst-footer-content">
+      <div class="col-sm-2">
+        <span class="rst-menu-title">菜单</span>
+        <ul>
+          <li><a href="/portal/newsup/contact">联系我们</a></li>
+          <li><a href="/portal/newsup/franchise">加入我们</a></li>
+          <li><a href="/portal/newsup/account">个人信息</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-2">
+        <span class="rst-menu-title">加盟商</span>
+        <ul>
+          <li id="sencey-type"><a href="javascript:;">景区导览</a></li>
+          {% if is_login and is_ops %}
+          <li id="distributed-type"><a href="javascript:;">供应商</a></li>
+          {% end %}
+        </ul>
+      </div>
+      <div class="col-sm-2">
+        <span class="rst-menu-title">文章分类</span>
+        <ul>
+          <li><a href="/portal/newsup/category?id=0bbf89e2f73411e69a3c00163e023e51">近期活动</a></li>
+          <li><a href="/portal/newsup/category?id=b0569f58144f11e78d3400163e023e51">旅游产品</a></li>
+          <li><a href="/portal/newsup/category?id=065f565e6bd711e7b46300163e023e51">旅游资讯</a></li>
+          {% if is_login and is_ops %}
+          <li><a href="/portal/newsup/category?id=01d6120cf73411e69a3c00163e023e51">景区需求</a></li>
+          <li><a href="/portal/newsup/category?id=8853422e03a911e7998c00163e023e51">经验交流</a></li>
+          <li><a href="/portal/newsup/category?id=2a28cb78f73411e69a3c00163e023e51">供应商产品</a></li>
+          <li><a href="/portal/newsup/category?id=404228663a1711e7b21000163e023e51">供应商需求</a></li>
+          {% end %}
+          <li><a href="/portal/newsup/media">精彩瞬间</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="rst-footer-copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 rst-copyright">
+          <p>© 2017 leshuiyou.cn 保留所有权利.</p>
+        </div>
+        <div class="col-xs-6 rst-design">
+          <p>乐水游 <a href="#"><i class="fa fa-angle-up"></i></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+
+    $(function(){
+      $("#sencey-type").on('click',function(){
+        location.href= encodeURI(encodeURI("/portal/newsup/franchises?franchise_type=景区"));
+      });
+      $("#distributed-type").on('click',function(){
+        location.href= encodeURI(encodeURI("/portal/newsup/franchises?franchise_type=供应商"));
+      });
+      $("#searchBtn").on('click',function(){
+        var q = encodeURI(encodeURI($("#searchText").val()));
+        location.href="/portal/newsup/search?q="+q;
+      });
+    })
+
+</script>
+<!--- End Footer -->

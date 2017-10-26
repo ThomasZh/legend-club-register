@@ -1,0 +1,43 @@
+<!-- begin social bar -->
+<div class="rst-header-socialbar">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <nav class="rst-socialbar-menu">
+          <ul>
+            <li><a href="/portal/newsup/contact">联系我们</a></li>
+            <li><a href="/portal/newsup/franchise">加入我们</a></li>
+            <li><a href="/portal/newsup/account">个人信息</a></li>
+          </ul>
+        </nav>
+        <nav class="rst-socialbar-social">
+          <ul>
+            <li>
+              <div class="rst-search">
+                <input type="text" id="searchText" onblur="if (this.value == '') {this.value = '关键词';}" onclick=" if (this.value == '关键词') {this.value = '';} " name="s">
+                <button class="sb" id="searchBtn"><i class="fa fa-search"></i></button>
+              </div>
+            </li>
+            {% if is_login %}
+            <li><a href="#"><i class="fa fa-user"></i></a></li>
+            {% end %}
+            <li>
+              <div class="rst-loginform">
+                {% if is_login %}
+                <a href="/portal/auth/logout">登出</a>
+                {% else %}
+                <a href="/portal/auth/register">登录</a>
+                {% end %}
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $("#searchText").val("关键词");
+</script>
+<!-- end social bar -->
