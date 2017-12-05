@@ -141,7 +141,9 @@ class AuthLeagueSignupXHR(BaseHandler):
         logging.info(self.request.body)
 
         session_ticket = json_decode(self.request.body)
-        self.set_secure_cookie("access_token", session_ticket['access_token'])
+        timestamp = time.time()
+        # cookie有效时间为2分钟
+        self.set_secure_cookie("access_token", session_ticket['access_token'], expires=timestamp+120)
         self.set_secure_cookie("expires_at", str(session_ticket['expires_at']))
 
         # signup into league
